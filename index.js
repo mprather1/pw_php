@@ -60,7 +60,13 @@ http.createServer(function (req, res) {
       request.post('http://shintech.ninja:8000/update.php?id=' + parsedURL.query.id, {form: JSON.parse(body)}).pipe(res)
     })
   }
-}).listen(3000)
+
+  if (req.method === 'DELETE') {
+    request.post('http://shintech.ninja:8000/delete.php', {form: {id: parsedURL.query.id}}).pipe(res)
+  }
+}).listen(3000, function () {
+  console.log('Listening on port 3000...')
+})
 
 function ParseResponse (response) {
   if (!(this instanceof ParseResponse)) {
