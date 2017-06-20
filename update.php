@@ -2,7 +2,7 @@
   include 'database.php';
   
   $id = null;
-  
+
   if(!empty($_GET['id'])) {
     $id = $_REQUEST['id'];
   }
@@ -15,9 +15,9 @@
     $name_error = null;
     $attribute_error = null;
     
-    $name = $_REQUEST['name'];
-    $attribute = $_REQUEST['attribute'];
-    
+    $name = $_POST['name'];
+    $attribute = $_POST['attribute'];
+
     $valid = true;
     if (empty($name)) {
       $name_error = 'Please enter name...';

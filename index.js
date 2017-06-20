@@ -9,6 +9,7 @@ var Transform = stream.Transform || require('readable-stream')
 http.createServer(function (req, res) {
   var parsedURL = url.parse(req.url, true)
   var data = []
+  var body = ''
   var parse = new ParseResponse()
 
   if (req.method === 'GET' && !parsedURL.query.id) {
@@ -40,8 +41,6 @@ http.createServer(function (req, res) {
   }
 
   if (req.method === 'POST') {
-    var body = ''
-
     req.on('data', function (response) {
       body += response
     })
@@ -49,6 +48,16 @@ http.createServer(function (req, res) {
     req.on('end', function () {
       var post = qs.parse(body)
       request.post('http://shintech.ninja:8000/post.php', {form: post}).pipe(res)
+    })
+  }
+
+  if (req.method === 'PUT' && parsedURL.query.id) {
+    req.on('data', function (response) {
+      body += response
+    })
+
+    req.on('end', function () {
+      request.post('http://shintech.ninja:8000/update.php?id=' + parsedURL.query.id, {form: JSON.parse(body)}).pipe(res)
     })
   }
 }).listen(3000)
