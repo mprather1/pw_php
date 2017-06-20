@@ -14,12 +14,12 @@ http.createServer(function (req, res) {
 
   if (req.method === 'GET' && !parsedURL.query.id) {
     parse.on('data', function (response) {
-      data += response
+      data.push(response)
     })
 
     parse.on('end', function () {
       res.setHeader('Content-Type', 'application/json')
-      res.write(data)
+      res.write(data.toString())
       res.end()
     })
 
@@ -28,12 +28,16 @@ http.createServer(function (req, res) {
 
   if (req.method === 'GET' && parsedURL.query.id) {
     parse.on('data', function (response) {
-      data += response
+      data.push(response)
+
+      if (data.length > 1e6) {
+        req.connection.destroy()
+      }
     })
 
     parse.on('end', function () {
       res.setHeader('Content-Type', 'application/json')
-      res.write(data)
+      res.write(data.toString())
       res.end()
     })
 
@@ -43,6 +47,10 @@ http.createServer(function (req, res) {
   if (req.method === 'POST') {
     req.on('data', function (response) {
       body += response
+
+      if (body.length > 1e6) {
+        req.connection.destroy()
+      }
     })
 
     req.on('end', function () {
@@ -54,6 +62,10 @@ http.createServer(function (req, res) {
   if (req.method === 'PUT' && parsedURL.query.id) {
     req.on('data', function (response) {
       body += response
+
+      if (body.length > 1e6) {
+        req.connection.destroy()
+      }
     })
 
     req.on('end', function () {
@@ -61,7 +73,7 @@ http.createServer(function (req, res) {
     })
   }
 
-  if (req.method === 'DELETE') {
+  if (req.method === 'DELETE' && parsedURL.query.id) {
     request.post('http://shintech.ninja:8000/delete.php', {form: {id: parsedURL.query.id}}).pipe(res)
   }
 }).listen(3000, function () {
