@@ -6,6 +6,10 @@ CRUD w/ PHP
 
 ### Usage
 
+Note: All examples use httpie. Results may differ using curl or postman.
+
+### PHP
+
 #### Start php server
 
     php -S <host>:<port>
@@ -29,3 +33,25 @@ CRUD w/ PHP
 #### /delete.php
 
     http -f POST http://<host>/delete.php id=<id>
+    
+### index.js
+
+#### GET
+
+    http http://<host>
+
+#### GET/:id
+
+    http http://<host>?id=<id>
+    
+#### POST
+
+    http -f POST http://<host> name=<name> attribute=<attribute>
+    
+#### PUT
+
+    http PUT http://<host>?id=<id> name=<name> attribute=<attribute>
+    
+#### DELETE
+
+    http DELETE http://<host>?id=<id>
