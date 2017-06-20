@@ -1,6 +1,6 @@
 {
   "name": "pw_php",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "index.js",
   "repository": "git@github.com:mprather1/pw_php",
   "author": "Michael Prather <mprather1@gmail.com>",

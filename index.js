@@ -3,6 +3,7 @@ var stream = require('stream')
 var http = require('http')
 var util = require('util')
 var url = require('url')
+var qs = require('querystring')
 var Transform = stream.Transform || require('readable-stream')
 
 http.createServer(function (req, res) {
@@ -36,6 +37,19 @@ http.createServer(function (req, res) {
     })
 
     request('http://shintech.ninja:8000/get_one.php?id=' + parsedURL.query.id).pipe(parse)
+  }
+
+  if (req.method === 'POST') {
+    var body = ''
+
+    req.on('data', function (response) {
+      body += response
+    })
+
+    req.on('end', function () {
+      var post = qs.parse(body)
+      request.post('http://shintech.ninja:8000/post.php', {form: post}).pipe(res)
+    })
   }
 }).listen(3000)
 
