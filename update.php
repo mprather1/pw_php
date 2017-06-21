@@ -37,7 +37,12 @@
       $sql = "UPDATE models SET name=?, attribute=? WHERE id=?";
       $q = $pdo->prepare($sql);
       $q->execute(array($name,$attribute,$id));
-      echo "Successfully updated 1 model...";
+      if ($q->rowCount()) {
+        echo 'At least 1 row was updated...';
+      } else {
+        echo 'No rows were affected...';
+      }
+      
       Database::disconnect();
     } else {
       'Input error';
