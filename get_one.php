@@ -2,7 +2,7 @@
   include 'database.php';
   $id = null;
   if(!empty($_GET['id'])) {
-    $id = $_REQUEST['id'];
+    $id = (int)$_REQUEST['id'];
   }
   
   if (null==$id) {
@@ -10,7 +10,7 @@
   } else {
     $pdo = Database::connect();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = 'SELECT * FROM models WHERE id = ?';
+    $sql = 'SELECT id, name, attribute, created_at FROM models WHERE id = ?';
     $q = $pdo->prepare($sql);
     $q->execute(array($id));
     $data = $q->fetch(PDO::FETCH_ASSOC);

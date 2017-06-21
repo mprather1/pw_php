@@ -1,7 +1,7 @@
 <?php
   include 'database.php';
   $pdo = Database::connect();
-  $sql = 'SELECT * FROM models';
+  $sql = 'SELECT id, name, attribute, created_at FROM models';
   $arr = array();
   
   foreach ($pdo->query($sql) as $row) {
