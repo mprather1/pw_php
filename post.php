@@ -26,7 +26,13 @@
       $sql = 'INSERT INTO models (name, attribute) values(?, ?)';
       $q = $pdo->prepare($sql);
       $q->execute(array($name,$attribute));
-      echo 'Successfully added 1 model...';
+      
+      if ($q->rowCount()) {
+        echo 'Successfully created model...';
+      } else {
+        echo 'No rows were affected...';
+      }
+      
       Database::disconnect();
     }
   } else {

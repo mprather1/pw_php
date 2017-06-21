@@ -11,7 +11,13 @@
     $sql = "DELETE FROM models WHERE id=?";
     $q = $pdo->prepare($sql);
     $q->execute(array($id));
-    echo "Successfully deleted 1 model...";
+    
+    if ($q->rowCount()) {
+      echo 'At least 1 row was deleted...';
+    } else {
+      echo 'No rows were affected...';
+    }
+    
     Database::disconnect();    
   }
 ?>

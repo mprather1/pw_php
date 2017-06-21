@@ -37,6 +37,7 @@
       $sql = "UPDATE models SET name=?, attribute=? WHERE id=?";
       $q = $pdo->prepare($sql);
       $q->execute(array($name,$attribute,$id));
+      
       if ($q->rowCount()) {
         echo 'At least 1 row was updated...';
       } else {
