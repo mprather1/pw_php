@@ -10,6 +10,19 @@ Note: All examples use httpie. Results may differ using curl or postman.
 
 ### PHP
 
+#### Create env.php
+
+    touch env.php
+    
+#### env.php example
+
+    <?php
+      putenv('DB_NAME=database');
+      putenv('DB_HOST=localhost');
+      putenv('DB_USER=user');
+      putenv('DB_PASSWORD=password');
+    ?>
+    
 #### Start php server
 
     php -S <host>:<port>
