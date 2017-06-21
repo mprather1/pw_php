@@ -5,7 +5,7 @@
     $attribute_error = null;
     
     $name = $_POST['name'];
-    $attribute = $_POST['attribute'];
+    $attribute = (int)$_POST['attribute'];
     
     $valid = true;
     if (empty($name)) {
