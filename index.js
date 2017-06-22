@@ -5,6 +5,8 @@ var util = require('util')
 var url = require('url')
 var qs = require('querystring')
 var Transform = stream.Transform || require('readable-stream')
+var server = process.env['SERVER']
+var port = process.env['PORT']
 
 http.createServer(function (req, res) {
   var parsedURL = url.parse(req.url, true)
@@ -23,7 +25,7 @@ http.createServer(function (req, res) {
       res.end()
     })
 
-    request('http://shintech.ninja:8000/get_all.php').pipe(parse)
+    request(server + '/get_all.php').pipe(parse)
   }
 
   if (req.method === 'GET' && parsedURL.query.id) {
@@ -41,7 +43,7 @@ http.createServer(function (req, res) {
       res.end()
     })
 
-    request('http://shintech.ninja:8000/get_one.php?id=' + parsedURL.query.id).pipe(parse)
+    request(server + '/get_one.php?id=' + parsedURL.query.id).pipe(parse)
   }
 
   if (req.method === 'POST') {
@@ -55,7 +57,7 @@ http.createServer(function (req, res) {
 
     req.on('end', function () {
       var post = qs.parse(body)
-      request.post('http://shintech.ninja:8000/post.php', {form: post}).pipe(res)
+      request.post(server + '/post.php', {form: post}).pipe(res)
     })
   }
 
@@ -69,15 +71,15 @@ http.createServer(function (req, res) {
     })
 
     req.on('end', function () {
-      request.post('http://shintech.ninja:8000/update.php?id=' + parsedURL.query.id, {form: JSON.parse(body)}).pipe(res)
+      request.post(server + '/update.php?id=' + parsedURL.query.id, {form: JSON.parse(body)}).pipe(res)
     })
   }
 
   if (req.method === 'DELETE' && parsedURL.query.id) {
-    request.post('http://shintech.ninja:8000/delete.php', {form: {id: parsedURL.query.id}}).pipe(res)
+    request(server + '/delete.php?id=' + parsedURL.query.id).pipe(res)
   }
-}).listen(3000, function () {
-  console.log('Listening on port 3000...')
+}).listen(port, function () {
+  console.log('Listening on port ' + port + '...')
 })
 
 function ParseResponse (response) {

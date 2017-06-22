@@ -4,7 +4,8 @@
   $id = null;
 
   if(!empty($_GET['id'])) {
-    $id = (int)$_REQUEST['id'];
+    $id = $_REQUEST['id'];
+    settype($id, 'integer');
   }
   
   if (null==$id) {

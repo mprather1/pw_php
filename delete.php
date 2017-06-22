@@ -1,8 +1,13 @@
 <?php
   include 'database.php';
-  if (!empty($_POST)) {
-    $id = (int)$_POST['id'];
+  
+  $id = null;
+  
+  if (!empty($_GET)) {
+    $id = $_GET['id'];
+    settype($id, 'integer');
   }
+  
   if (null==$id) {
     echo 'Please include id in query...';
   } else {

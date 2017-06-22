@@ -45,10 +45,14 @@ Note: All examples use httpie. Results may differ using curl or postman.
     
 #### /delete.php
 
-    http -f POST http://<host>/delete.php id=<id>
+    http http://<host>/delete.php?id=<id>
     
 ### index.js
 
+#### Start server
+
+    SERVER=http://<host>:<port> PORT=<port> node index.js
+    
 #### GET
 
     http http://<host>

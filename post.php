@@ -1,5 +1,6 @@
 <?php
   include 'database.php';
+  
   if (!empty($_POST)) {
     $name_error = null;
     $attribute_error = null;
