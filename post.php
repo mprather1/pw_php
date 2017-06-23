@@ -10,13 +10,13 @@
     
     $valid = true;
     if (empty($name)) {
-      $name_error = 'Please enter name...';
+      $name_error = 'Please enter name...' . "\n";
       echo $name_error;
       $valid = false;
     }
     
     if (empty($attribute)) {
-      $attribute_error = 'Please enter attribute...';
+      $attribute_error = 'Please enter attribute...' . "\n";
       echo $attribute_error;
       $valid = false;
     }    

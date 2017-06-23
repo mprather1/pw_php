@@ -9,7 +9,7 @@
   }
   
   if (null==$id) {
-    echo 'Please include id in query...';
+    echo 'Please include id in query...' . "\n";
   } else {
     $pdo = Database::connect();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

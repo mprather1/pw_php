@@ -9,7 +9,7 @@
   }
   
   if (null==$id) {
-    echo 'Please include id in query...';
+    echo 'Please include id in query...' . "\n";
   } else {
     $pdo = Database::connect();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -18,9 +18,9 @@
     $q->execute(array($id));
     
     if ($q->rowCount()) {
-      echo 'At least 1 row was deleted...';
+      echo 'At least 1 row was deleted...' . "\n";
     } else {
-      echo 'No rows were affected...';
+      echo 'No rows were affected...' . "\n";
     }
     
     Database::disconnect();    
