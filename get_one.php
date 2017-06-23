@@ -1,5 +1,5 @@
 <?php
-  include 'database.php';
+  include 'lib/database.php';
   
   $id = null;
   
@@ -12,7 +12,6 @@
     echo 'Please include id in query...' . "\n";
   } else {
     $pdo = Database::connect();
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = 'SELECT id, name, attribute, created_at FROM models WHERE id = ?';
     $q = $pdo->prepare($sql);
     $q->execute(array($id));

@@ -1,12 +1,13 @@
 <?php
-  include 'database.php';
+  include 'lib/database.php';
+  include 'lib/sanitizer.php';
   
   if (!empty($_POST)) {
     $name_error = null;
     $attribute_error = null;
     
-    $name = $_POST['name'];
-    $attribute = (int)$_POST['attribute'];
+    $name = Sanitizer::sanitize($_POST['name']);
+    $attribute = Sanitizer::sanitize((int)$_POST['attribute']);
     
     $valid = true;
     if (empty($name)) {
@@ -23,7 +24,6 @@
     
     if ($valid) {
       $pdo = Database::connect();
-      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = 'INSERT INTO models (name, attribute) values(?, ?)';
       $q = $pdo->prepare($sql);
       $q->execute(array($name,$attribute));

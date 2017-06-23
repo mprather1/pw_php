@@ -1,5 +1,6 @@
 <?php
-  include 'database.php';
+  include 'lib/database.php';
+  
   $pdo = Database::connect();
   $sql = 'SELECT id, name, attribute, created_at FROM models';
   $arr = array();

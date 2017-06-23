@@ -1,5 +1,6 @@
 <?php
-  include 'database.php';
+  include 'lib/database.php';
+  include 'lib/sanitizer.php';
   
   $id = null;
   $valid = true;
@@ -18,8 +19,8 @@
     $name_error = null;
     $attribute_error = null;
     
-    $name = $_POST['name'];
-    $attribute = (int)$_POST['attribute'];
+    $name = Sanitizer::sanitize($_POST['name']);
+    $attribute = Sanitizer::sanitize((int)$_POST['attribute']);
 
     if (empty($name)) {
       $name_error = 'Please enter name...' . "\n";
@@ -35,7 +36,6 @@
     
     if ($valid) {
       $pdo = Database::connect();
-      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $sql = "UPDATE models SET name=?, attribute=? WHERE id=?";
       $q = $pdo->prepare($sql);
       $q->execute(array($name,$attribute,$id));
@@ -48,7 +48,7 @@
       
       Database::disconnect();
     } else {
-      echo 'Input error';
+      echo 'Input error...';
     }
   }
 ?>
