@@ -29,14 +29,14 @@
       $q->execute(array($name,$attribute));
       
       if ($q->rowCount()) {
-        echo 'Successfully created model...';
+        echo 'Successfully created model...' . "\n";
       } else {
-        echo 'No rows were affected...';
+        echo 'No rows were affected...' . "\n";
       }
       
       Database::disconnect();
     }
   } else {
-    echo 'Input error...';
+    echo 'Input error...' . "\n";
   }
 ?>

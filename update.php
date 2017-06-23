@@ -48,7 +48,7 @@
       
       Database::disconnect();
     } else {
-      echo 'Input error...';
+      echo 'Input error...' . "\n";
     }
   }
 ?>
