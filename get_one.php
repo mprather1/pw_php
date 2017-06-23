@@ -1,13 +1,13 @@
 <?php
   include 'lib/database.php';
-  
+
   $id = null;
-  
+
   if(!empty($_GET['id'])) {
     $id = $_REQUEST['id'];
     settype($id, 'integer');
   }
-  
+
   if (null==$id) {
     echo 'Please include id in query...' . "\n";
   } else {

@@ -25,7 +25,7 @@ class Database
 
     if (self::$db_user === null) {
       self::$db_user = getenv('DB_USER');
-    }  
+    }
 
     if (self::$db_password === null) {
       self::$db_password = getenv('DB_PASSWORD');
@@ -35,7 +35,7 @@ class Database
       try {
         self::$conn = new PDO( "mysql:host=".self::$db_host.";"."dbname=".self::$db_name, self::$db_user, self::$db_password);
         self::$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-        self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);        
+        self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       } catch (PDOExeption $e) {
         die($e->getMessage());
       }
