@@ -16,7 +16,13 @@
     $q = $pdo->prepare($sql);
     $q->execute(array($id));
     $data = $q->fetch(PDO::FETCH_ASSOC);
-    echo json_encode($data);
+    
+    if ($data === false) {
+      echo 'Not found...';
+    } else {
+      echo json_encode($data);
+    }
+    
     Database::disconnect();
   }
 ?>

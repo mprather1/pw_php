@@ -26,10 +26,12 @@
       $pdo = Database::connect();
       $sql = 'INSERT INTO models (name, attribute) values(?, ?)';
       $q = $pdo->prepare($sql);
-      $q->execute(array($name,$attribute));
+      $arr = array($name, $attribute);
+      $q->execute($arr);
       
       if ($q->rowCount()) {
         echo 'Successfully created model...' . "\n";
+        echo 'values: ' . json_encode($arr);
       } else {
         echo 'No rows were affected...' . "\n";
       }

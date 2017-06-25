@@ -38,10 +38,13 @@
       $pdo = Database::connect();
       $sql = "UPDATE models SET name=?, attribute=? WHERE id=?";
       $q = $pdo->prepare($sql);
-      $q->execute(array($name,$attribute,$id));
+      $arr = array($name,$attribute,$id);
+      $q->execute($arr);
 
-      if ($q->rowCount()) {
-        echo 'At least 1 row was updated...' . "\n";
+      if ($q->rowCount() === 1) {
+        $id = array_pop($arr);
+        echo 'Updated 1 row...' . "\n";
+        echo 'id: ' . $id  . ', values: ' . json_encode($arr);
       } else {
         echo 'No rows were affected...' . "\n";
       }
