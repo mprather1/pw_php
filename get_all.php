@@ -1,5 +1,6 @@
 <?php
   include 'lib/database.php';
+  include 'lib/response.php';
 
   $pdo = Database::connect();
   $sql = 'SELECT id, name, attribute, created_at FROM models';
@@ -10,7 +11,11 @@
     array_push($arr, $entry);
   }
 
-  echo json_encode($arr);
+  Response::getResponse(
+    'success',
+    'Successfully fetched all rows...',
+    $arr
+  );
 
   Database::disconnect();
 ?>

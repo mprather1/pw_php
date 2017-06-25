@@ -1,5 +1,6 @@
 <?php
   include 'lib/database.php';
+  include 'lib/response.php';
 
   $id = null;
 
@@ -9,20 +10,23 @@
   }
 
   if (null==$id) {
-    echo 'Please include id in query...' . "\n";
+    Response::getResponse('failure', 'Please include id in query...', null);
   } else {
     $pdo = Database::connect();
     $sql = "DELETE FROM models WHERE id=?";
     $q = $pdo->prepare($sql);
     $q->execute(array($id));
-    
+
     if ($q->rowCount() === 1) {
-      echo 'Deleted 1 row...' . "\n";
-      echo 'id: ' . $id;
+      Response::getResponse(
+        'success',
+        'Successfully deleted ' . $q->rowCount() . ' row...',
+        null
+      );
     } else {
-      echo 'No rows were affected...' . "\n";
+      Response::getResponse('failure', 'No rows were affected...', null);
     }
-  
+
     Database::disconnect();
   }
 ?>

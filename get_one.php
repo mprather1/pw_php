@@ -1,5 +1,6 @@
 <?php
   include 'lib/database.php';
+  include 'lib/response.php';
 
   $id = null;
 
@@ -9,20 +10,24 @@
   }
 
   if (null==$id) {
-    echo 'Please include id in query...' . "\n";
+    Response::getResponse('failure', 'Please include id in query...', null);
   } else {
     $pdo = Database::connect();
     $sql = 'SELECT id, name, attribute, created_at FROM models WHERE id = ?';
     $q = $pdo->prepare($sql);
     $q->execute(array($id));
     $data = $q->fetch(PDO::FETCH_ASSOC);
-    
+
     if ($data === false) {
-      echo 'Not found...';
+      Response::getResponse('failure', 'Not found...', null);
     } else {
-      echo json_encode($data);
+      Response::getResponse(
+        'success',
+        'Successfully fetched row with id -> ' . $id . '...',
+        $data
+      );
     }
-    
+
     Database::disconnect();
   }
 ?>

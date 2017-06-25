@@ -1,9 +1,10 @@
 <?php
   include 'lib/database.php';
   include 'lib/sanitizer.php';
-
+  include 'lib/validator.php';
+  include 'lib/response.php';
+  
   $id = null;
-  $valid = true;
 
   if(!empty($_GET['id'])) {
     $id = $_REQUEST['id'];
@@ -11,30 +12,14 @@
   }
 
   if (null==$id) {
-    echo 'Please include id in query...' . "\n";
-    $valid = false;
+    Response::getResponse('failure', 'Please include id in query...', null);
   }
 
   if (!empty($_POST)) {
-    $name_error = null;
-    $attribute_error = null;
-
     $name = Sanitizer::sanitize($_POST['name']);
     $attribute = Sanitizer::sanitize((int)$_POST['attribute']);
 
-    if (empty($name)) {
-      $name_error = 'Please enter name...' . "\n";
-      echo $name_error;
-      $valid = false;
-    }
-
-    if (empty($attribute)) {
-      $attribute_error = 'Please enter attribute...' . "\n";
-      echo $attribute_error;
-      $valid = false;
-    }
-
-    if ($valid) {
+    if (Validator::validate($name, $attribute)) {
       $pdo = Database::connect();
       $sql = "UPDATE models SET name=?, attribute=? WHERE id=?";
       $q = $pdo->prepare($sql);
@@ -42,16 +27,18 @@
       $q->execute($arr);
 
       if ($q->rowCount() === 1) {
-        $id = array_pop($arr);
-        echo 'Updated 1 row...' . "\n";
-        echo 'id: ' . $id  . ', values: ' . json_encode($arr);
+        Response::getResponse(
+          'success',
+          'Successfully updated ' . $q->rowCount() . ' rows...',
+          array('name' => $arr[0], 'attribute' => $arr[1], 'id' => $arr[2])
+        );
       } else {
-        echo 'No rows were affected...' . "\n";
+        Response::getResponse('failure', 'No rows were affected...', null);
       }
 
       Database::disconnect();
     } else {
-      echo 'Input error...' . "\n";
+      Response::getResponse('failure', 'Input error...', null);
     }
   }
 ?>

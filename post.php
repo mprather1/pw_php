@@ -1,44 +1,33 @@
 <?php
   include 'lib/database.php';
   include 'lib/sanitizer.php';
+  include 'lib/validator.php';
+  include 'lib/response.php';
 
   if (!empty($_POST)) {
-    $name_error = null;
-    $attribute_error = null;
-
     $name = Sanitizer::sanitize($_POST['name']);
     $attribute = Sanitizer::sanitize((int)$_POST['attribute']);
 
-    $valid = true;
-    if (empty($name)) {
-      $name_error = 'Please enter name...' . "\n";
-      echo $name_error;
-      $valid = false;
-    }
-
-    if (empty($attribute)) {
-      $attribute_error = 'Please enter attribute...' . "\n";
-      echo $attribute_error;
-      $valid = false;
-    }
-
-    if ($valid) {
+    if (Validator::validate($name, $attribute)) {
       $pdo = Database::connect();
       $sql = 'INSERT INTO models (name, attribute) values(?, ?)';
       $q = $pdo->prepare($sql);
       $arr = array($name, $attribute);
       $q->execute($arr);
-      
-      if ($q->rowCount()) {
-        echo 'Successfully created model...' . "\n";
-        echo 'values: ' . json_encode($arr);
+
+      if ($q->rowCount() === 1) {
+        Response::getResponse(
+          'success',
+          'Successfully created ' . $q->rowCount() . ' rows...',
+          array('name' => $arr[0], 'attribute' => $arr[1])
+        );
       } else {
-        echo 'No rows were affected...' . "\n";
+        Response::getResponse('failure', 'Failed to create row...', null);
       }
 
       Database::disconnect();
     }
   } else {
-    echo 'Input error...' . "\n";
+    Response::getResponse('failure', 'Input error...', null);
   }
 ?>
