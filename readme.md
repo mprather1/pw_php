@@ -29,23 +29,23 @@ Note: All examples use curl. Results may differ using postman or httpie.
     
 #### GET all
 
-    curl http://<host>/get.php
+    curl http://<host>/index.php
     
-#### GET one
+#### GET/:id
 
-    curl http://<host>/get_one.php?id=<id>
+    curl http://<host>/index.php?id=<id>
 
 #### POST
 
-    curl -X POST http://<host>/post.php -d name=<name> -d attribute=<attribute>
+    curl -X POST http://<host>/index.php -d name=<name> -d attribute=<attribute>
     
-#### /update.php
+#### PUT
 
     curl -X PUT http://<host>/index.php -d name=<string> -d attribute=<integer>
     
-#### /delete.php
+#### DELETE
 
-    curl -X DELETE http://<host>/delete.php?id=<id>
+    curl -X DELETE http://<host>/index.php?id=<id>
     
 ### index.js
 
