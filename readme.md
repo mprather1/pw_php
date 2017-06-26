@@ -6,7 +6,7 @@ CRUD w/ PHP
 
 ### Usage
 
-Note: All examples use httpie. Results may differ using curl or postman.
+Note: All examples use curl. Results may differ using postman or httpie.
 
 ### PHP
 
@@ -27,25 +27,25 @@ Note: All examples use httpie. Results may differ using curl or postman.
 
     php -S <host>:<port>
     
-#### /get.php
+#### GET all
 
-    http http://<host>/get.php
+    curl http://<host>/get.php
     
-#### /get_one.php
+#### GET one
 
-    http http://<host>/get_one.php?id=<id>
+    curl http://<host>/get_one.php?id=<id>
 
-#### /post.php
+#### POST
 
-    http -f POST http://<host>/post.php name=<name> attribute=<attribute>
+    curl -X POST http://<host>/post.php -d name=<name> -d attribute=<attribute>
     
 #### /update.php
 
-    http -f POST http://<host>/update.php?id=<id> name=<name> attribute=<attribute>
+    curl -X PUT http://<host>/index.php -d name=<string> -d attribute=<integer>
     
 #### /delete.php
 
-    http http://<host>/delete.php?id=<id>
+    curl -X DELETE http://<host>/delete.php?id=<id>
     
 ### index.js
 

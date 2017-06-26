@@ -12,7 +12,7 @@
         return false;
       }
 
-      return true;      
+      return true;
     }
   }
 ?>
