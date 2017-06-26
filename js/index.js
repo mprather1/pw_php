@@ -25,7 +25,7 @@ http.createServer(function (req, res) {
       res.end()
     })
 
-    request(server + '/get_all.php').pipe(parse)
+    request(server).pipe(parse)
   }
 
   if (req.method === 'GET' && parsedURL.query.id) {
@@ -43,7 +43,7 @@ http.createServer(function (req, res) {
       res.end()
     })
 
-    request(server + '/get_one.php?id=' + parsedURL.query.id).pipe(parse)
+    request(server + '?id=' + parsedURL.query.id).pipe(parse)
   }
 
   if (req.method === 'POST') {
@@ -57,7 +57,7 @@ http.createServer(function (req, res) {
 
     req.on('end', function () {
       var post = qs.parse(body)
-      request.post(server + '/post.php', {form: post}).pipe(res)
+      request.post(server, {form: post}).pipe(res)
     })
   }
 
@@ -71,12 +71,12 @@ http.createServer(function (req, res) {
     })
 
     req.on('end', function () {
-      request.post(server + '/update.php?id=' + parsedURL.query.id, {form: JSON.parse(body)}).pipe(res)
+      request.put(server + '?id=' + parsedURL.query.id, {form: JSON.parse(body)}).pipe(res)
     })
   }
 
   if (req.method === 'DELETE' && parsedURL.query.id) {
-    request(server + '/delete.php?id=' + parsedURL.query.id).pipe(res)
+    request.delete(server + '?id=' + parsedURL.query.id).pipe(res)
   }
 }).listen(port, function () {
   console.log('Listening on port ' + port + '...')

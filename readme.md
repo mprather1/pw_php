@@ -6,9 +6,9 @@ CRUD w/ PHP
 
 ### Usage
 
-Note: All examples use curl. Results may differ using postman or httpie.
-
 ### PHP
+
+Note: All php examples use curl. Results may differ using postman or httpie.
 
 #### Create env.php
 
@@ -27,7 +27,7 @@ Note: All examples use curl. Results may differ using postman or httpie.
 
     php -S <host>:<port>
     
-#### GET all
+#### GET
 
     curl http://<host>/index.php
     
@@ -49,9 +49,11 @@ Note: All examples use curl. Results may differ using postman or httpie.
     
 ### index.js
 
+Note: All js examples use httpie. Results may differ using postman or curl.
+
 #### Start server
 
-    SERVER=http://<host>:<port> PORT=<port> node index.js
+    SERVER=http://<host>:<port>/index.php PORT=<port> node index.js
     
 #### GET
 
