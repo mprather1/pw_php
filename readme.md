@@ -41,7 +41,7 @@ Note: All php examples use curl. Results may differ using postman or httpie.
     
 #### PUT
 
-    curl -X PUT http://<host>/index.php -d name=<string> -d attribute=<integer>
+    curl -X PUT http://<host>/index.php?id=<id> -d name=<string> -d attribute=<integer>
     
 #### DELETE
 
