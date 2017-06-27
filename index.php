@@ -11,7 +11,7 @@
   if(!empty($_GET['id'])) {
     $id = $_REQUEST['id'];
     settype($id, 'integer');
-  }  
+  }
 
   if ($method === "GET" && !$id) {
     GET::request_all();

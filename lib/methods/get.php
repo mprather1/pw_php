@@ -1,5 +1,4 @@
 <?php
-
   include_once 'lib/database.php';
   include_once 'lib/response.php';
 
